@@ -12,8 +12,8 @@ export const events: EventType[] = [
     title: 'Post-Microsoft Event meeting and Word Vectorization',
     date: '2025-04-17',
     description: 'Discussion on the Microsoft event and discussion on Word Vectorization.',
-    image: '/AI_hero.jpeg',
-    link: '/4-17-25',
+    image: '/wordvector.png',
+    link: '4-17-25',
   },
   {
     title: 'ML Workshop',
