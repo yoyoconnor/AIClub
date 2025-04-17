@@ -1,3 +1,4 @@
+import React from 'react';
 import { events, EventType } from '../data/clubEvents';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
@@ -81,7 +82,7 @@ const ClubEvents = () => {
             </div>
             {upcoming.length > maxVisible && (
               <div className="text-center">
-                <Link to="/events" className="text-[#990000] font-medium underline hover:text-red-800 transition">
+                <Link to="/events/upcoming" className="text-[#990000] font-medium underline hover:text-red-800 transition">
                   See all upcoming events →
                 </Link>
               </div>
@@ -104,7 +105,7 @@ const ClubEvents = () => {
             </div>
             {past.length > maxVisible && (
               <div className="text-center">
-                <Link to="/events" className="text-[#990000] font-medium underline hover:text-red-800 transition">
+                <Link to="/events/past" className="text-[#990000] font-medium underline hover:text-red-800 transition">
                   See all past events →
                 </Link>
               </div>
