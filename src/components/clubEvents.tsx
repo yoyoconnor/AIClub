@@ -1,4 +1,3 @@
-import React from 'react';
 import { events, EventType } from '../data/clubEvents';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
