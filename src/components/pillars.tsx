@@ -1,4 +1,4 @@
-import { BrainCircuit, Code2, Rocket, Users } from 'lucide-react';
+import { BriefcaseBusiness, ChartNoAxesCombined, Workflow, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { GlowCard } from './ui/Cards';
 import { SectionHeading } from './ui/Bits';
@@ -13,28 +13,28 @@ type Pillar = {
 
 const PILLARS: Pillar[] = [
   {
-    icon: BrainCircuit,
-    title: 'Learn the fundamentals',
-    body: 'Workshops that go from linear regression to transformers without hand-waving. We write the code, then we break it on purpose.',
-    tag: '01 / Workshops',
+    icon: BriefcaseBusiness,
+    title: 'Find valuable problems',
+    body: 'Learn where AI creates real value—and where it does not. We start with the customer, workflow, or decision before choosing the technology.',
+    tag: '01 / Strategy',
   },
   {
-    icon: Code2,
-    title: 'Ship real projects',
-    body: 'Small teams, real datasets, working demos. Everything you build here is something you can put in front of a recruiter.',
-    tag: '02 / Projects',
+    icon: Workflow,
+    title: 'Automate real work',
+    body: 'Map repetitive processes, build useful AI workflows, and measure the time and cost they save. The goal is adoption—not another forgotten demo.',
+    tag: '02 / Automation',
   },
   {
-    icon: Rocket,
-    title: 'Compete and win',
-    body: 'Hackathons, Kaggle sprints, and AI challenges — with the club providing compute, mentorship, and moral support at 2am.',
-    tag: '03 / Competitions',
+    icon: ChartNoAxesCombined,
+    title: 'Make better decisions',
+    body: 'Turn messy data into forecasts, insights, and decision tools that a team can actually use. Every project has a clear user and success metric.',
+    tag: '03 / Analytics',
   },
   {
     icon: Users,
-    title: 'Meet the industry',
-    body: 'Guest talks and site visits with engineers and researchers who do this for a living, plus the alumni network behind them.',
-    tag: '04 / Community',
+    title: 'Work across disciplines',
+    body: 'Business students bring the problem context. Technical students bring the build skills. Together, we prototype solutions with industry mentors.',
+    tag: '04 / Collaboration',
   },
 ];
 
@@ -42,13 +42,13 @@ const Pillars = () => (
   <section className="relative section px-5 sm:px-8">
     <div className="mx-auto max-w-6xl">
       <SectionHeading
-        eyebrow="Why we exist"
+        eyebrow="How we create value"
         title={
           <>
-            Four things we do <span className="text-gradient">relentlessly</span>
+            From AI idea to <span className="text-gradient">business impact</span>
           </>
         }
-        lede="No prerequisites, no gatekeeping. Show up curious and we'll handle the rest."
+        lede="We learn the technology through practical use cases, measurable outcomes, and teams that blend business thinking with technical execution."
       />
 
       <div className="mt-16 grid gap-6 md:grid-cols-2">

@@ -30,21 +30,20 @@ const JoinCta = () => (
             <Reveal direction="up">
               <span className="inline-flex items-center gap-3 eyebrow text-crimson-300/90">
                 <span className="h-px w-8 bg-linear-to-r from-crimson-500 to-transparent" />
-                Open to everyone
+                Built for every major
               </span>
             </Reveal>
 
             <h2 className="mt-6 text-section font-bold text-white text-balance">
-              <RevealWords text="Your first model is" />{' '}
+              <RevealWords text="Bring a problem." />{' '}
               <span className="text-gradient">
-                <RevealWords text="one meeting away." delay={0.25} />
+                <RevealWords text="Build the solution." delay={0.25} />
               </span>
             </h2>
 
             <Reveal direction="up" delay={0.2}>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-300 text-pretty">
-                Freshmen, seniors, CS majors, history majors — we have all of them. Dues are zero, the compute is
-                shared, and the only requirement is that you actually want to build something.
+                Whether you understand the business problem, the data, the customer, or the code, there is a place for you here. Join a cross-functional team and turn an AI idea into something people can actually use.
               </p>
             </Reveal>
 

@@ -37,8 +37,7 @@ const Footer = () => (
               </span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-400">
-              A student-run community building, breaking and understanding artificial intelligence — one workshop,
-              hackathon and late-night debugging session at a time.
+              A student-run community turning artificial intelligence into practical value through cross-functional teams, real use cases, and measurable outcomes.
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a

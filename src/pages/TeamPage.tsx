@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Copy, GraduationCap, MapPin } from 'lucide-react';
+import { Check, Copy, GraduationCap, Linkedin, MapPin } from 'lucide-react';
 import { teamMembers, type TeamMember } from '../data/teamMembers';
 import { PageShell, Eyebrow, Typewriter } from '../components/ui/Bits';
 import { Reveal } from '../components/ui/Reveal';
@@ -8,8 +8,8 @@ import { GlowCard } from '../components/ui/Cards';
 import { Chip } from '../components/ui/Buttons';
 
 const GROUPS: { name: string; roles: string[] }[] = [
-  { name: 'Executive Team', roles: ['President', 'Vice President', 'Executive Coordinator', 'Investor Relations'] },
-  { name: 'Developers', roles: ['Executive Developer', 'Software Developer'] },
+  { name: 'Executive Team', roles: ['President', 'Vice President', 'Operations Officer'] },
+  { name: 'Developers', roles: ['Software Developer'] },
   { name: 'Graduate Advisors', roles: ['Graduate Advisor'] },
   { name: 'Faculty Advisor', roles: ['Faculty Advisor'] },
 ];
@@ -19,7 +19,7 @@ const MemberCard = ({ member, index }: { member: TeamMember; index: number }) =>
 
   const copyEmail = () => {
     void navigator.clipboard
-      .writeText(member.email)
+      .writeText(member.email ?? '')
       .then(() => {
         setCopied(true);
         setTimeout(() => {
@@ -37,13 +37,19 @@ const MemberCard = ({ member, index }: { member: TeamMember; index: number }) =>
         {/* Portrait */}
         <div className="relative mx-auto h-28 w-28">
           <span className="absolute -inset-1 rounded-full bg-linear-to-tr from-crimson-600 via-crimson-400 to-orange-400 opacity-60 blur-[6px] transition-opacity duration-500 group-hover:opacity-100" />
-          <span className="absolute inset-0 overflow-hidden rounded-full ring-2 ring-ink-900">
-            <img
-              src={member.image}
-              alt={member.name}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+          <span className="absolute inset-0 grid overflow-hidden rounded-full bg-ink-800 ring-2 ring-ink-900">
+            {member.image ? (
+              <img
+                src={member.image}
+                alt={member.name}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            ) : (
+              <span className="place-self-center font-display text-3xl font-semibold tracking-tight text-white">
+                {member.name.split(' ').map((part) => part[0]).join('')}
+              </span>
+            )}
           </span>
         </div>
 
@@ -67,10 +73,10 @@ const MemberCard = ({ member, index }: { member: TeamMember; index: number }) =>
 
         <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-400">{member.bio}</p>
 
-        <button
-          type="button"
-          onClick={copyEmail}
-          className="mt-5 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.7rem] text-ink-300 transition-colors duration-300 hover:border-crimson-400/50 hover:text-white"
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
+        {member.email && <button
+          type="button" onClick={copyEmail}
+          className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.7rem] text-ink-300 transition-colors duration-300 hover:border-crimson-400/50 hover:text-white"
         >
           <AnimatePresence mode="wait" initial={false}>
             {copied ? (
@@ -95,7 +101,18 @@ const MemberCard = ({ member, index }: { member: TeamMember; index: number }) =>
               </motion.span>
             )}
           </AnimatePresence>
-        </button>
+        </button>}
+        {member.linkedin && (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.7rem] text-ink-300 transition-colors duration-300 hover:border-[#0a66c2]/70 hover:text-white"
+          >
+            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+          </a>
+        )}
+        </div>
       </GlowCard>
     </Reveal>
   );
@@ -182,7 +199,7 @@ const TeamPage = () => {
 
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {group.members.map((member, i) => (
-                    <MemberCard key={member.email} member={member} index={i} />
+                    <MemberCard key={member.name} member={member} index={i} />
                   ))}
                 </div>
               </motion.section>

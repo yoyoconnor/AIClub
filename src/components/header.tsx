@@ -61,9 +61,9 @@ const Header = () => {
         className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4"
       >
         <div
-          className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-6 ${
+          className={`mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-6 ${
             scrolled
-              ? 'h-14 border border-white/10 bg-ink-900/75 shadow-[0_10px_40px_-16px_rgba(0,0,0,0.9)] backdrop-blur-xl'
+              ? 'h-14 border border-white/10 bg-ink-950/72 shadow-[0_16px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl'
               : 'h-16 border border-transparent bg-transparent'
           }`}
         >

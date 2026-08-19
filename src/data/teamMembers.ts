@@ -3,47 +3,38 @@ export type TeamMember = {
   position: string;
   major?: string;
   hometown?: string;
-  image: string;
+  image?: string;
   bio: string;
-  email: string;
+  email?: string;
+  linkedin?: string;
 };
 
 export const teamMembers: TeamMember[] = [
   {
-    name: 'Spence Hannegan',
+    name: 'Zach Groves',
     position: 'President',
-    major: 'Mathematics',
-    hometown: 'Meridian, MS',
-    image: '/team/spence.webp',
-    bio: 'Spence is passionate about AI research and leads projects in machine learning.',
-    email: 'sdhanegan@crimson.ua.edu',
+    major: 'Computer Engineering · STEM-to-MBA',
+    hometown: 'Woodcliff Lake, NJ',
+    bio: 'Founder of GradePath focused on applied AI, automation, and building useful products. Zach leads the club’s vision, partnerships, and practical AI initiatives.',
+    linkedin: 'https://www.linkedin.com/in/zachary-lyle-groves/',
   },
   {
-    name: 'Josh Hargrave',
+    name: 'Connor Barbaccia',
     position: 'Vice President',
-    major: 'Aerospace Eng',
-    hometown: 'Pearland, TX',
-    image: '/team/josh.webp',
-    bio: 'Josh specializes in AI ethics and works on AI-driven social good initiatives.',
-    email: 'jmhargrave@crimson.ua.edu',
+    major: 'Mathematics and Computer Science',
+    hometown: 'Naperville, IL',
+    image: '/team/connor.webp',
+    bio: 'Connor builds software and applied AI products. He leads the club’s technology, digital platforms, and project execution.',
+    email: 'crbarbacciw@crimson.ua.edu',
+    linkedin: 'https://www.linkedin.com/in/connor-barbaccia',
   },
   {
-    name: 'Julian Garcia',
-    position: 'Executive Coordinator',
-    major: 'Aerospace Eng',
-    hometown: 'Wichita Falls, TX',
-    image: '/team/julian.webp',
-    bio: 'Julian is eager to merge aerospace & AI for tech innovation. Excited to grow the club, tackle projects, and explore AI’s impact on aerospace.',
-    email: 'jrgarcia3@crimson.ua.edu',
-  },
-  {
-    name: 'Benjamin Washburn',
-    position: 'Investor Relations',
-    major: '',
-    hometown: '',
-    image: '/team/benjamin.webp',
-    bio: '',
-    email: 'bcwashburn1@crimson.ua.edu',
+    name: 'Dawson Sconyers',
+    position: 'Operations Officer',
+    major: 'Computer Science · STEM-to-MBA',
+    hometown: 'Tuscaloosa, AL',
+    bio: 'Dawson combines software, business, and project-planning experience to manage club operations and turn new initiatives into well-run programs.',
+    linkedin: 'https://www.linkedin.com/in/dawson-sconyers/',
   },
   {
     name: 'Michal Zajac',
@@ -69,15 +60,6 @@ export const teamMembers: TeamMember[] = [
     image: '/team/gong.webp',
     bio: 'Associate professor of Computer Science, specializes in AI applications across healthcare, engineering, and public services.',
     email: 'jiaqi.gong@ua.edu',
-  },
-  {
-    name: 'Connor Barbaccia',
-    position: 'Executive Developer',
-    major: 'Mathematics and Computer Science',
-    hometown: 'Naperville, IL',
-    image: '/team/connor.webp',
-    bio: 'Connor manages the GitHub and website for UAAI and leads the webdev team.',
-    email: 'crbarbacciw@crimson.ua.edu',
   },
   {
     name: 'Fabricio Gutierrez',

@@ -1,19 +1,19 @@
 export const aboutPageData = {
   heading: 'About the AI Club',
   intro:
-    'We are a student-led community at The University of Alabama figuring out artificial intelligence the only way that actually works — by building it. Beginners and researchers sit at the same table here.',
+    'We are a student-led community at The University of Alabama focused on the practical application of artificial intelligence. We bring business insight and technical talent together to solve real problems, test ideas quickly, and measure what works.',
   teamImage: '/ELM_0009.webp',
   whatWeDo: [
-    'Run hands-on workshops on machine learning, deep learning, and NLP',
-    'Organize hackathons, Kaggle sprints, and internal AI challenges',
-    'Collaborate on research projects and open-source tooling',
-    'Host guest speakers from academia and industry',
+    'Run hands-on workshops on AI strategy, automation, analytics, and product building',
+    'Form cross-functional teams around real business and community problems',
+    'Prototype useful tools, validate them with users, and measure their impact',
+    'Learn from founders, operators, analysts, engineers, and industry leaders',
   ],
   whyJoin: [
-    'Get real experience on projects that end up in your portfolio',
-    'Learn from peers, grad students, and working practitioners',
-    'Build technical confidence long before your first interview',
-    'Join a group that shows up for each other at 2am before a deadline',
+    'Build portfolio projects with a clear user, use case, and business outcome',
+    'Learn how organizations evaluate, adopt, and govern AI responsibly',
+    'Gain experience working across business and technical roles',
+    'Meet peers and practitioners who want to turn new technology into value',
   ],
   timeline: [
     {
@@ -24,7 +24,7 @@ export const aboutPageData = {
     {
       year: '2025',
       title: 'Workshops go public',
-      body: 'Weekly sessions on Python, neural networks, and word vectors draw students from engineering, business, and the sciences.',
+      body: 'Weekly sessions connect AI fundamentals to practical use cases in operations, marketing, finance, product, and customer experience.',
     },
     {
       year: '2025',
@@ -33,8 +33,8 @@ export const aboutPageData = {
     },
     {
       year: 'Now',
-      title: 'Building in the open',
-      body: 'Member-led project teams, a public GitHub, and this site — all maintained by students.',
+      title: 'Building for impact',
+      body: 'Cross-functional project teams work from problem discovery through prototype, testing, and a clear recommendation.',
     },
   ],
   values: [
@@ -43,12 +43,12 @@ export const aboutPageData = {
       body: 'Nobody is asked what year they are or what their GPA looks like before they get to build something.',
     },
     {
-      title: 'Working code beats theory',
-      body: 'We read the paper, then we implement it. If it does not run, we have not learned it yet.',
+      title: 'Outcomes over hype',
+      body: 'A useful workflow that saves someone an hour is worth more than an impressive demo nobody adopts.',
     },
     {
-      title: 'Teach what you just learned',
-      body: 'The best explanation of a concept usually comes from the person who understood it last week.',
+      title: 'Different disciplines, one team',
+      body: 'The best solutions come from combining domain knowledge, user empathy, data, design, and engineering.',
     },
   ],
 };
