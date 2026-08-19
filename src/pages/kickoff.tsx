@@ -1,8 +1,12 @@
+import { DocPage } from '../components/ui/DocPage';
+
 export default function TutorialPage() {
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-6 text-center">Using OpenAI API to Answer Questions in an Excel Sheet</h1>
-
+    <DocPage
+      eyebrow="Kickoff meeting · Feb 27, 2025"
+      title="Using the OpenAI API to answer questions in an Excel sheet"
+      lede="A walkthrough from our first meeting of the semester: point a language model at a spreadsheet of questions and let it fill in the answers column."
+    >
       <h2 className="text-2xl font-semibold mb-4">Prerequisites</h2>
       <ul className="list-disc list-inside mb-6">
         <li>
@@ -79,6 +83,6 @@ print("Answers saved to Excel!")`}</code>
 
       <h2 className="text-2xl font-semibold mb-4">Conclusion</h2>
       <p>You’ve successfully automated answering questions in an Excel sheet using OpenAI’s API!</p>
-    </div>
+    </DocPage>
   );
 }

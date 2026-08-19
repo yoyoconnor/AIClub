@@ -1,22 +1,38 @@
-// projectsData.ts
+export type Project = {
+  title: string;
+  description: string;
+  technologies: string[];
+  image: string;
+  link?: string;
+  status?: 'Live' | 'In progress' | 'Archived';
+};
 
-export const projects = [
+export const projects: Project[] = [
   {
-    title: 'EXAMPLE',
+    title: 'Handwritten Digit Recognizer',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas laoreet dui ultricies dolor malesuada accumsan.',
-    technologies: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib'],
+      'A neural network trained on MNIST that runs entirely in your browser — draw a digit on the canvas and watch the model classify it in real time, no server round-trip required.',
+    technologies: ['TensorFlow.js', 'React', 'Canvas API', 'TypeScript'],
     image: '/AI_hero.jpeg',
     link: '/projects/digits',
+    status: 'Live',
   },
   {
     title: 'AI Club Website',
     description:
-      'This very site — built using modern web technologies to showcase our events, projects, and team, while supporting animations, PWA features, and a beautiful responsive UI.',
-    technologies: ['React', 'TypeScript', 'Tailwind', 'Framer Motion'],
-    image: '/AI_hero.jpeg',
+      'This very site — a fully static React app with route-level animations, a PWA service worker, and a design system built on Tailwind. Maintained entirely by club members.',
+    technologies: ['React 19', 'TypeScript', 'Tailwind CSS', 'Motion', 'Vite'],
+    image: '/codingSession.webp',
     link: 'https://github.com/AIClubUA/AIClubWebsite',
+    status: 'Live',
   },
-
-  // Add more here
+  {
+    title: 'Word Vector Playground',
+    description:
+      'An exploration of word embeddings built during our post-Microsoft meeting: training Word2Vec from scratch, then visualizing the semantic space to see which words actually cluster together.',
+    technologies: ['Python', 'Gensim', 'NumPy', 'Matplotlib'],
+    image: '/wordvector.png',
+    link: '/4-17-25',
+    status: 'Archived',
+  },
 ];

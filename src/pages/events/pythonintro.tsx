@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { DocPage } from '../../components/ui/DocPage';
 
 const PythonIntro: React.FC = () => {
   const [showTutorial, setShowTutorial] = useState(false);
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-6 text-center ">AI Club Meeting - March 6th - Python and AI Intro</h1>
-
+    <DocPage
+      eyebrow="Meeting recap · Mar 6, 2025"
+      title="Python and AI intro"
+      lede="Newcomers wrote their first Python; everyone else split into project teams. The full beginner tutorial from the session is included below."
+    >
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Lab Demonstration</h2>
         <p className="mb-4">During the meeting, a lab demonstration was shown by the AI club members.</p>
@@ -36,31 +39,44 @@ const PythonIntro: React.FC = () => {
       </section>
 
       {!showTutorial && (
-        <div className="text-center mt-4">
+        <button
+          type="button"
+          onClick={() => {
+            setShowTutorial(true);
+          }}
+          className="group mt-10 flex w-full cursor-pointer flex-col items-center gap-4 rounded-3xl border border-dashed border-white/12 bg-white/[0.02] p-10 transition-colors duration-400 hover:border-crimson-500/50"
+        >
           <img
             src="/eventimages/pythonlogo.png"
-            alt="Python Intro"
-            className="cursor-pointer w-1/5 mx-auto"
-            onClick={() => setShowTutorial(true)}
+            alt=""
+            className="w-24 transition-transform duration-500 group-hover:scale-110"
           />
-          <p className="mb-2 text-center">Click to see Python tutorial</p>
-        </div>
+          <span className="font-mono text-xs tracking-[0.2em] text-crimson-300 uppercase">
+            Open the Python tutorial →
+          </span>
+        </button>
       )}
 
       {showTutorial && (
-        <>
-          <Tutorial onClose={() => setShowTutorial(false)} />
-        </>
+        <Tutorial
+          onClose={() => {
+            setShowTutorial(false);
+          }}
+        />
       )}
-    </div>
+    </DocPage>
   );
 };
 
 const Tutorial: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
-    <div className="container mx-auto p-8 mt-4 border-2 border-black">
-      <button type="button" className="bg-red-500 text-white px-4 py-2 rounded mb-4 float-right" onClick={onClose}>
-        Close Tutorial
+    <div className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.02] p-7 sm:p-9">
+      <button
+        type="button"
+        className="float-right rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs text-ink-300 transition-colors hover:border-crimson-400/50 hover:text-white"
+        onClick={onClose}
+      >
+        Close tutorial
       </button>
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Basic Python Concepts:</h2>

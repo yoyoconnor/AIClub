@@ -54,7 +54,6 @@ export const events: EventType[] = [
     image: '/AI_hero.jpeg',
     link: 'tutorialpage',
   },
-  
 
   // Add more
 ];

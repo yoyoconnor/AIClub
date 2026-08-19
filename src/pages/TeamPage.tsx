@@ -1,147 +1,196 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { teamMembers, TeamMember } from '../data/teamMembers';
-import { useScrollToTop } from '../hooks/scrollTop';
+import { Check, Copy, GraduationCap, MapPin } from 'lucide-react';
+import { teamMembers, type TeamMember } from '../data/teamMembers';
+import { PageShell, Eyebrow, Typewriter } from '../components/ui/Bits';
+import { Reveal } from '../components/ui/Reveal';
+import { GlowCard } from '../components/ui/Cards';
+import { Chip } from '../components/ui/Buttons';
 
-// Agrupar miembros por tipo de rol
-const groupMap: Record<string, string[]> = {
-  'Executive Team': ['President', 'Vice President', 'Executive Coordinator', 'Investor Relations'],
-  'Graduate Advisors': ['Graduate Advisor'],
-  'Faculty Advisor': ['Faculty Advisor'],
-  Developers: ['Executive Developer', 'Software Developer'],
-};
+const GROUPS: { name: string; roles: string[] }[] = [
+  { name: 'Executive Team', roles: ['President', 'Vice President', 'Executive Coordinator', 'Investor Relations'] },
+  { name: 'Developers', roles: ['Executive Developer', 'Software Developer'] },
+  { name: 'Graduate Advisors', roles: ['Graduate Advisor'] },
+  { name: 'Faculty Advisor', roles: ['Faculty Advisor'] },
+];
 
-// Agrupar automáticamente según `groupMap`
-const groupMembers = () => {
-  const groups: Record<string, TeamMember[]> = {};
-  for (const [group, roles] of Object.entries(groupMap)) {
-    groups[group] = teamMembers.filter((m) => roles.includes(m.position));
-  }
-  return groups;
-};
+const MemberCard = ({ member, index }: { member: TeamMember; index: number }) => {
+  const [copied, setCopied] = useState(false);
 
-const TeamPage = () => {
-  useScrollToTop();
-  const fullText = 'Meet the AI Club Team';
-  const [typedText, setTypedText] = useState('');
-  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-
-  const groups = groupMembers();
-
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setTypedText(fullText.slice(0, i + 1));
-      i++;
-      if (i === fullText.length) clearInterval(interval);
-    }, 60);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleCopyEmail = async (email: string) => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopiedEmail(email);
-      setTimeout(() => setCopiedEmail(null), 2000);
-    } catch {
-      alert('Clipboard copy not supported');
-    }
+  const copyEmail = () => {
+    void navigator.clipboard
+      .writeText(member.email)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => {
+          setCopied(false);
+        }, 1800);
+      })
+      .catch(() => {
+        /* clipboard unavailable */
+      });
   };
 
   return (
-    <motion.div
-      className="bg-white min-h-screen px-6 py-16 text-gray-800"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-[#990000] min-h-[3rem]">
-          {typedText}
-          <span className="animate-pulse">|</span>
-        </h1>
-        <p className="text-gray-600 mt-4 max-w-xl mx-auto">
-          The people behind the vision — combining passion, creativity, and technical skill to shape the future of AI at
-          the University of Alabama.
-        </p>
-      </div>
+    <Reveal direction="up" delay={(index % 3) * 0.08} className="h-full">
+      <GlowCard tilt={8} className="h-full p-7 text-center">
+        {/* Portrait */}
+        <div className="relative mx-auto h-28 w-28">
+          <span className="absolute -inset-1 rounded-full bg-linear-to-tr from-crimson-600 via-crimson-400 to-orange-400 opacity-60 blur-[6px] transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="absolute inset-0 overflow-hidden rounded-full ring-2 ring-ink-900">
+            <img
+              src={member.image}
+              alt={member.name}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          </span>
+        </div>
 
-      {/* Groups */}
-      <div className="space-y-12 max-w-6xl mx-auto">
-        {Object.entries(groups).map(([group, members]) => {
-          const isOpen = expanded[group] ?? false;
+        <h3 className="mt-5 font-display text-lg font-semibold text-white">{member.name}</h3>
+        <p className="mt-1 font-mono text-[0.7rem] tracking-[0.16em] text-crimson-400 uppercase">{member.position}</p>
 
-          return (
-            <div key={group}>
-              {/* Group Header */}
-              <button
-                type="button"
-                onClick={() =>
-                  setExpanded((prev) => ({
-                    ...prev,
-                    [group]: !prev[group],
-                  }))
-                }
-                className="flex items-center justify-between w-full text-left text-2xl font-bold text-[#990000] mb-4"
+        <div className="mt-4 flex flex-wrap justify-center gap-2 text-[0.72rem] text-ink-400">
+          {member.major && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1">
+              <GraduationCap className="h-3 w-3 text-crimson-400" />
+              {member.major}
+            </span>
+          )}
+          {member.hometown && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1">
+              <MapPin className="h-3 w-3 text-crimson-400" />
+              {member.hometown}
+            </span>
+          )}
+        </div>
+
+        <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-400">{member.bio}</p>
+
+        <button
+          type="button"
+          onClick={copyEmail}
+          className="mt-5 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.7rem] text-ink-300 transition-colors duration-300 hover:border-crimson-400/50 hover:text-white"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {copied ? (
+              <motion.span
+                key="done"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="inline-flex items-center gap-2 text-crimson-300"
               >
-                {group}
-                {isOpen ? <ChevronUp /> : <ChevronDown />}
-              </button>
+                <Check className="h-3.5 w-3.5" /> Copied
+              </motion.span>
+            ) : (
+              <motion.span
+                key="idle"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="inline-flex items-center gap-2"
+              >
+                <Copy className="h-3.5 w-3.5" /> {member.email}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </button>
+      </GlowCard>
+    </Reveal>
+  );
+};
 
-              {/* Member cards */}
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-                  >
-                    {members.map((member, index) => (
-                      <motion.div
-                        key={member.name.trim()}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: index * 0.05 }}
-                        whileHover={{
-                          scale: 1.03,
-                          rotate: 0.3,
-                          transition: { duration: 0.2 },
-                        }}
-                        className="bg-gray-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center relative overflow-hidden group"
-                      >
-                        <div className="w-28 h-28 rounded-full overflow-hidden mb-4 border-4 border-[#990000] shadow">
-                          <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                        </div>
-                        <h3 className="text-xl font-semibold text-[#990000]">{member.name}</h3>
-                        <p className="text-sm text-gray-500 mb-1">{member.position}</p>
-                        {member.major && <p className="text-sm text-gray-600">Major: {member.major}</p>}
-                        {member.hometown && <p className="text-sm text-gray-600 mb-1">Hometown: {member.hometown}</p>}
-                        <p className="text-sm text-gray-700 mt-2 mb-3">{member.bio}</p>
-                        <button
-                          type="button"
-                          onClick={() => handleCopyEmail(member.email)}
-                          className="text-sm text-blue-600 hover:underline cursor-pointer bg-transparent border-none p-0 z-10"
-                        >
-                          {copiedEmail === member.email ? 'Copied!' : member.email}
-                        </button>
-                        <div className="absolute inset-0 rounded-2xl bg-[#990000] opacity-0 group-hover:opacity-10 transition duration-300 z-0" />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+const TeamPage = () => {
+  const [filter, setFilter] = useState('All');
+
+  const grouped = useMemo(
+    () =>
+      GROUPS.map((g) => ({
+        name: g.name,
+        members: teamMembers.filter((m) => g.roles.includes(m.position)),
+      })).filter((g) => g.members.length > 0),
+    [],
+  );
+
+  const visible = filter === 'All' ? grouped : grouped.filter((g) => g.name === filter);
+
+  return (
+    <PageShell className="px-5 pt-20 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <Reveal direction="up">
+            <Eyebrow className="justify-center">The people</Eyebrow>
+          </Reveal>
+          <h1 className="mt-6 text-section font-bold text-white">
+            <Typewriter text="Meet the team" speed={70} />
+          </h1>
+          <Reveal direction="up" delay={0.6}>
+            <p className="mt-5 text-lg leading-relaxed text-ink-300 text-pretty">
+              The students and faculty keeping the lights on, the workshops running, and the GPUs warm.
+            </p>
+          </Reveal>
+        </div>
+
+        {/* Filters */}
+        <Reveal direction="up" delay={0.2}>
+          <div className="mt-10 flex flex-wrap justify-center gap-2.5">
+            <Chip
+              active={filter === 'All'}
+              onClick={() => {
+                setFilter('All');
+              }}
+            >
+              All · {teamMembers.length}
+            </Chip>
+            {grouped.map((g) => (
+              <Chip
+                key={g.name}
+                active={filter === g.name}
+                onClick={() => {
+                  setFilter(g.name);
+                }}
+              >
+                {g.name} · {g.members.length}
+              </Chip>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Groups */}
+        <div className="mt-16 space-y-20 pb-8">
+          <AnimatePresence mode="popLayout">
+            {visible.map((group) => (
+              <motion.section
+                key={group.name}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="mb-9 flex items-center gap-5">
+                  <h2 className="font-display text-2xl font-semibold whitespace-nowrap text-white sm:text-3xl">
+                    {group.name}
+                  </h2>
+                  <span className="h-px flex-1 bg-linear-to-r from-crimson-500/50 to-transparent" />
+                  <span className="font-mono text-xs text-ink-500">
+                    {String(group.members.length).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.members.map((member, i) => (
+                    <MemberCard key={member.email} member={member} index={i} />
+                  ))}
+                </div>
+              </motion.section>
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
-    </motion.div>
+    </PageShell>
   );
 };
 

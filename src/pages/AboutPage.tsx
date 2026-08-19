@@ -1,90 +1,165 @@
-import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
+import { Check, Sparkles } from 'lucide-react';
 import { aboutPageData } from '../data/aboutContent';
-import { useScrollToTop } from '../hooks/scrollTop';
+import { PageShell, SectionHeading, Typewriter, Eyebrow } from '../components/ui/Bits';
+import { Reveal } from '../components/ui/Reveal';
+import { GlowCard } from '../components/ui/Cards';
+import { PrimaryButton, GhostButton } from '../components/ui/Buttons';
 
 const AboutPage = () => {
-  useScrollToTop();
-  const [typedText, setTypedText] = useState('');
-  const fullText = aboutPageData.heading;
-
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setTypedText(fullText.slice(0, i + 1));
-      i++;
-      if (i === fullText.length) clearInterval(interval);
-    }, 80);
-    return () => clearInterval(interval);
-  }, [fullText]);
+  const imgWrap = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: imgWrap, offset: ['start end', 'end start'] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
 
   return (
-    <div className="bg-white text-gray-800 px-6 py-16 min-h-screen">
-      <div className="max-w-6xl mx-auto space-y-16">
-        {/* Header with typing animation */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="text-4xl font-bold text-center text-[#990000] mb-4 min-h-[3rem]">
-            {typedText}
-            <span className="animate-pulse">|</span>
+    <PageShell className="px-5 pt-20 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal direction="up">
+            <Eyebrow className="justify-center">Who we are</Eyebrow>
+          </Reveal>
+          <h1 className="mt-6 text-section font-bold text-white">
+            <Typewriter text={aboutPageData.heading} speed={55} />
           </h1>
-          <p className="text-center text-lg text-gray-700">{aboutPageData.intro}</p>
-        </motion.div>
+          <Reveal direction="up" delay={0.5}>
+            <p className="mt-6 text-lg leading-relaxed text-ink-300 text-pretty">{aboutPageData.intro}</p>
+          </Reveal>
+        </div>
 
-        {/* Team Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="rounded-xl overflow-hidden shadow-lg max-w-4xl mx-auto"
-        >
-          <img src={aboutPageData.teamImage} alt="AI Club Team" className="w-full h-auto object-cover" />
-        </motion.div>
-
-        {/* Two Column Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {/* What We Do */}
-          <div className="bg-gray-100 p-6 rounded-xl shadow-md">
-            <h2 className="text-2xl font-semibold text-[#990000] mb-4">What We Do</h2>
-            <ul className="list-disc list-inside text-gray-700 space-y-2">
-              {aboutPageData.whatWeDo.map((item) => (
-                <li key={item.slice(10).trim()}>{item}</li>
-              ))}
-            </ul>
+        {/* Hero image with parallax */}
+        <Reveal direction="scale" delay={0.2} className="mt-16">
+          <div ref={imgWrap} className="relative aspect-16/9 overflow-hidden rounded-3xl border border-white/10">
+            <motion.img
+              style={{ y: imgY }}
+              src={aboutPageData.teamImage}
+              alt="AI Club members"
+              className="absolute inset-0 h-[116%] w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-ink-950 via-ink-950/25 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-9">
+              <p className="font-display text-xl font-semibold text-white sm:text-2xl">
+                Built by students, for students.
+              </p>
+            </div>
           </div>
+        </Reveal>
 
-          {/* Why Join */}
-          <div className="bg-gray-100 p-6 rounded-xl shadow-md">
-            <h2 className="text-2xl font-semibold text-[#990000] mb-4">Why Join?</h2>
-            <ul className="list-disc list-inside text-gray-700 space-y-2">
-              {aboutPageData.whyJoin.map((item) => (
-                <li key={item.slice(10).trim()}>{item}</li>
+        {/* What we do / Why join */}
+        <div className="mt-24 grid gap-6 md:grid-cols-2">
+          {[
+            { title: 'What we do', items: aboutPageData.whatWeDo },
+            { title: 'Why join', items: aboutPageData.whyJoin },
+          ].map((col, ci) => (
+            <Reveal key={col.title} direction={ci === 0 ? 'right' : 'left'} delay={ci * 0.1}>
+              <GlowCard tilt={3} className="h-full p-8">
+                <h2 className="font-display text-2xl font-semibold text-white">
+                  {col.title}
+                  <span className="text-crimson-500">.</span>
+                </h2>
+                <ul className="mt-6 space-y-4">
+                  {col.items.map((item, i) => (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: -14 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.08 }}
+                      className="flex items-start gap-3 text-sm leading-relaxed text-ink-300"
+                    >
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-crimson-600/20 text-crimson-300 ring-1 ring-crimson-500/30">
+                        <Check className="h-3 w-3" />
+                      </span>
+                      {item}
+                    </motion.li>
+                  ))}
+                </ul>
+              </GlowCard>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Timeline */}
+        <div className="mt-28">
+          <SectionHeading
+            eyebrow="How we got here"
+            title={
+              <>
+                A short <span className="text-gradient">history</span>
+              </>
+            }
+            align="left"
+          />
+
+          <div className="relative mt-14 pl-8 sm:pl-12">
+            {/* Rail */}
+            <div className="absolute top-2 bottom-2 left-[3px] w-px bg-linear-to-b from-crimson-500/70 via-crimson-700/40 to-transparent sm:left-[7px]" />
+
+            <div className="space-y-12">
+              {aboutPageData.timeline.map((entry, i) => (
+                <Reveal key={entry.title} direction="up" delay={i * 0.08}>
+                  <div className="group relative">
+                    <span className="absolute top-1.5 -left-8 h-2 w-2 rounded-full bg-crimson-500 ring-4 ring-crimson-500/20 transition-all duration-400 group-hover:ring-8 sm:-left-12 sm:h-3.5 sm:w-3.5" />
+                    <span className="font-mono text-xs tracking-[0.2em] text-crimson-400 uppercase">{entry.year}</span>
+                    <h3 className="mt-2 font-display text-xl font-semibold text-white">{entry.title}</h3>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-400">{entry.body}</p>
+                  </div>
+                </Reveal>
               ))}
-            </ul>
+            </div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Values */}
+        <div className="mt-28">
+          <SectionHeading
+            eyebrow="How we operate"
+            title={
+              <>
+                Three things we <span className="text-gradient">believe</span>
+              </>
+            }
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {aboutPageData.values.map((value, i) => (
+              <Reveal key={value.title} direction="up" delay={i * 0.1}>
+                <GlowCard tilt={6} className="h-full p-7">
+                  <span className="font-mono text-4xl font-bold text-white/8">0{i + 1}</span>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-white">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-400">{value.body}</p>
+                </GlowCard>
+              </Reveal>
+            ))}
+          </div>
+        </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="text-center"
-        >
-          <h3 className="text-xl font-semibold mb-2">Ready to join us?</h3>
-          <a
-            href="#contact"
-            className="inline-block bg-[#990000] text-white px-6 py-3 rounded-lg hover:bg-red-800 transition"
-          >
-            Contact Us
-          </a>
-        </motion.div>
+        <Reveal direction="up" className="mt-28 mb-8">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/60 p-10 text-center backdrop-blur-xl sm:p-14">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-24 left-1/2 h-56 w-[32rem] -translate-x-1/2 rounded-full bg-crimson-600/25 blur-[90px]"
+            />
+            <div className="relative">
+              <h3 className="text-section font-bold text-white">
+                Ready to <span className="text-gradient">start building?</span>
+              </h3>
+              <p className="mx-auto mt-4 max-w-md text-ink-300">
+                Come to one meeting. If it is not for you, no hard feelings.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <PrimaryButton href="mailto:sdhanegan@crimson.ua.edu?subject=Joining%20the%20UA%20AI%20Club">
+                  <Sparkles className="h-4 w-4" />
+                  Get in touch
+                </PrimaryButton>
+                <GhostButton to="/events">Browse events</GhostButton>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
-    </div>
+    </PageShell>
   );
 };
 

@@ -1,39 +1,44 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
 import Hero from '../components/heroSection';
+import Pillars from '../components/pillars';
 import Events from '../components/clubEvents';
-import { useScrollToTop } from '../hooks/scrollTop';
 import Gallery from '../components/ImageGallery';
+import JoinCta from '../components/joinCta';
+import { PageShell } from '../components/ui/Bits';
+
+type ScrollState = { scrollTarget?: string } | null;
 
 const HomePage = () => {
-  useScrollToTop();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const scrollTo = location.state?.scrollTarget;
-    if (scrollTo) {
-      const timeout = setTimeout(() => {
-        const el = document.getElementById(scrollTo);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-          navigate(location.pathname, { replace: true, state: {} });
-        }
-      }, 300);
-      return () => clearTimeout(timeout);
-    }
+    const state = location.state as ScrollState;
+    const target = state?.scrollTarget;
+    if (!target) return;
+
+    const timeout = setTimeout(() => {
+      const el = document.getElementById(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        void navigate(location.pathname, { replace: true, state: {} });
+      }
+    }, 320);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [location, navigate]);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+    <PageShell>
       <Hero />
-      <div id="events" className="scroll-mt-20">
-        <Events />
-      </div>
-
+      <Pillars />
+      <Events />
       <Gallery />
-    </motion.div>
+      <JoinCta />
+    </PageShell>
   );
 };
 

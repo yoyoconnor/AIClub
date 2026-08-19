@@ -1,5 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
+import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function TrainingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -51,7 +54,9 @@ export default function TrainingCanvas() {
     const rect = canvas.getBoundingClientRect();
     const x = 'touches' in event ? event.touches[0].clientX - rect.left : event.clientX - rect.left;
     const y = 'touches' in event ? event.touches[0].clientY - rect.top : event.clientY - rect.top;
-    drawCustomShape(ctx, Math.floor(x / 8), Math.floor(y / 8));
+    // Light ink on the dark canvas so strokes stay visible.
+    ctx.fillStyle = '#ffe0e2';
+    drawCustomShape(ctx, Math.floor((x / rect.width) * canvas.width), Math.floor((y / rect.height) * canvas.height));
   };
 
   const drawCustomShape = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
@@ -125,11 +130,11 @@ export default function TrainingCanvas() {
     const xs = tf.tensor2d(
       trainingData.map((d) => d.pixels),
       [trainingData.length, 1024],
-      'float32'
+      'float32',
     );
     const ys = tf.tensor1d(
       trainingData.map((d) => d.number),
-      'float32'
+      'float32',
     );
 
     await model.fit(xs, ys, { epochs: 10 });
@@ -155,58 +160,132 @@ export default function TrainingCanvas() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">
-        Draw the number: {currentNumber !== null ? currentNumber : 'Loading...'}
-      </h1>
-      {predictedNumber !== null && <h2 className="text-3xl font-bold text-red-500">{predictedNumber}</h2>}
-      {accuracy !== null && <h2 className="text-2xl font-bold text-red-500">{accuracy * 100}% confident</h2>}
-      <canvas
-        ref={canvasRef}
-        width="32"
-        height="32"
-        style={{
-          border: '1px solid black',
-          imageRendering: 'pixelated',
-          width: '256px',
-          height: '256px',
-        }}
-        onMouseDown={startDrawing}
-        onMouseUp={endDrawing}
-        onMouseMove={draw}
-        onTouchStart={startDrawing}
-        onTouchEnd={endDrawing}
-        onTouchMove={draw}
-      ></canvas>
-      <div className="mt-2">
-        <button type="button" onClick={clearCanvas} className="p-2 bg-gray-300 rounded mr-2">
-          Clear
-        </button>
-        <button type="button" onClick={submitCanvas} className="p-2 bg-yellow-500 text-white rounded">
-          Submit
-        </button>
+    <div className="px-5 pt-20 pb-20 sm:px-8">
+      <div className="mx-auto max-w-3xl">
+        <Link
+          to="/projects"
+          className="group inline-flex items-center gap-2 font-mono text-xs tracking-wide text-ink-400 uppercase transition-colors hover:text-crimson-300"
+        >
+          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+          All projects
+        </Link>
+
+        <header className="mt-8 text-center">
+          <span className="inline-flex items-center gap-3 eyebrow text-crimson-300/90">
+            <span className="h-px w-8 bg-linear-to-r from-crimson-500 to-transparent" />
+            Live demo
+          </span>
+          <h1 className="mt-5 text-section font-bold text-white">
+            Handwritten <span className="text-gradient">digit recognizer</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl leading-relaxed text-ink-300">
+            Draw digits to build a dataset, train a small neural network right in your browser, then test it. Nothing
+            leaves your machine — TensorFlow.js does all the work locally.
+          </p>
+        </header>
+
+        {/* Canvas panel */}
+        <div className="relative mt-12 overflow-hidden rounded-3xl border border-white/10 bg-ink-900/60 p-8 backdrop-blur-xl">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 left-1/2 h-52 w-96 -translate-x-1/2 rounded-full bg-crimson-600/20 blur-[90px]"
+          />
+
+          <div className="relative flex flex-col items-center">
+            <p className="eyebrow text-ink-500">Draw this digit</p>
+            <div className="mt-3 font-display text-6xl font-bold text-gradient tabular-nums">
+              {currentNumber ?? '—'}
+            </div>
+
+            <div className="relative mt-8">
+              <canvas
+                ref={canvasRef}
+                width="32"
+                height="32"
+                className="touch-none rounded-2xl border border-crimson-500/30 bg-ink-950 shadow-[0_0_60px_-20px_rgba(240,48,63,0.9)]"
+                style={{
+                  imageRendering: 'pixelated',
+                  width: '256px',
+                  height: '256px',
+                  cursor: 'crosshair',
+                }}
+                onMouseDown={startDrawing}
+                onMouseUp={endDrawing}
+                onMouseLeave={endDrawing}
+                onMouseMove={draw}
+                onTouchStart={startDrawing}
+                onTouchEnd={endDrawing}
+                onTouchMove={draw}
+              />
+
+              <AnimatePresence>
+                {predictedNumber !== null && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.85 }}
+                    className="absolute inset-0 grid place-items-center rounded-2xl bg-ink-950/85 backdrop-blur-sm"
+                  >
+                    <div className="text-center">
+                      <div className="font-display text-7xl font-bold text-gradient">{predictedNumber}</div>
+                      {accuracy !== null && (
+                        <div className="mt-2 font-mono text-xs text-ink-300">
+                          {(accuracy * 100).toFixed(1)}% confident
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Controls */}
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <button
+                type="button"
+                onClick={clearCanvas}
+                className="cursor-pointer rounded-full border border-white/12 bg-white/5 px-5 py-2.5 text-sm text-ink-200 transition-colors hover:border-crimson-400/50 hover:text-white"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                onClick={submitCanvas}
+                className="cursor-pointer rounded-full bg-crimson-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-crimson-500 hover:shadow-[0_8px_28px_-8px] hover:shadow-crimson-500/80"
+              >
+                Save sample
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  void trainModel();
+                }}
+                disabled={isTraining}
+                className="cursor-pointer rounded-full border border-emerald-400/40 bg-emerald-500/15 px-5 py-2.5 text-sm text-emerald-200 transition-colors hover:bg-emerald-500/25 disabled:cursor-wait disabled:opacity-60"
+              >
+                {isTraining ? 'Training…' : 'Train model'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  void testModel();
+                }}
+                disabled={isTraining}
+                className="cursor-pointer rounded-full border border-white/12 bg-white/5 px-5 py-2.5 text-sm text-ink-200 transition-colors hover:border-crimson-400/50 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Test model
+              </button>
+            </div>
+
+            <div className="mt-8 flex items-center gap-2 font-mono text-xs text-ink-500">
+              <span
+                className={`h-2 w-2 rounded-full ${isTraining ? 'animate-pulse bg-emerald-400' : 'bg-crimson-600'}`}
+              />
+              Dataset size: {trainingData.length} sample{trainingData.length === 1 ? '' : 's'}
+            </div>
+          </div>
+        </div>
       </div>
-      {isTraining == false && (
-        <button type="button" onClick={trainModel} className="mt-4 p-2 bg-green-500 text-white rounded">
-          Train Model
-        </button>
-      )}
-      {isTraining == true && (
-        <button type="button" onClick={trainModel} className="mt-4 p-2 bg-black text-white rounded">
-          Currently Training
-        </button>
-      )}
-      {isTraining == false && (
-        <button type="button" onClick={testModel} className="mt-4 p-2 bg-blue-500 text-white rounded">
-          Test Model
-        </button>
-      )}
-      {isTraining == true && (
-        <button type="button" className="mt-4 p-2 bg-red-500 text-white rounded">
-          Test Model
-        </button>
-      )}
-      <h1 className="text-1xl font-bold text-black mt-4">Dataset Size: {trainingData.length}</h1>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, MotionConfig } from 'motion/react';
 import Header from './components/header';
+import Footer from './components/footer';
+import { Backdrop, ScrollProgress } from './components/ui/Backdrop';
+import { useRouteScrollReset } from './hooks/scrollTop';
 import HomePage from './pages/HomePage';
 import AllEventsPage from './pages/AllEventsPage';
 import AboutPage from './pages/AboutPage';
 import TeamPage from './pages/TeamPage';
-import Footer from './components/footer';
 import TutorialPage from './pages/kickoff';
 import ProjectsPage from './pages/ProjectsPage';
 import PythonIntro from './pages/events/pythonintro';
@@ -14,26 +16,34 @@ import April17Meeting from './pages/events/postmicrosoftevent';
 
 function App() {
   const location = useLocation();
+  useRouteScrollReset();
+
   return (
-    <>
-      <Header />
-      <main>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/events" element={<AllEventsPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/tutorialpage" element={<TutorialPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
-            <Route path="/pythonintro" element={<PythonIntro />} />
-            <Route path="/4-17-25" element={<April17Meeting/>}/>
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
-    </>
+    <MotionConfig reducedMotion="user">
+      <div className="relative flex min-h-screen flex-col">
+        <Backdrop />
+        <ScrollProgress />
+        <Header />
+
+        <main className="flex-1 pt-16">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/events" element={<AllEventsPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/team" element={<TeamPage />} />
+              <Route path="/tutorialpage" element={<TutorialPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+              <Route path="/pythonintro" element={<PythonIntro />} />
+              <Route path="/4-17-25" element={<April17Meeting />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 }
 

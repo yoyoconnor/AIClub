@@ -1,4 +1,520 @@
-@import "tailwindcss";
-html {
-  scroll-behavior: smooth;
+@import 'tailwindcss';
+
+/* ============================================================
+   UA AI Club — Design System
+   Dark base + Alabama crimson accent
+   ============================================================ */
+
+@theme {
+  /* Brand — Alabama crimson, extended into a usable scale */
+  --color-crimson-50: #fff1f2;
+  --color-crimson-100: #ffe0e2;
+  --color-crimson-200: #ffc5c9;
+  --color-crimson-300: #ff9ba3;
+  --color-crimson-400: #ff5f6d;
+  --color-crimson-500: #f0303f;
+  --color-crimson-600: #d21c2c;
+  --color-crimson-700: #a81322;
+  --color-crimson-800: #990000;
+  --color-crimson-900: #6b0005;
+  --color-crimson-950: #3d0003;
+
+  /* Ink — the dark canvas */
+  --color-ink-50: #f6f7f9;
+  --color-ink-100: #e9ecf1;
+  --color-ink-200: #cbd1dd;
+  --color-ink-300: #9aa3b7;
+  --color-ink-400: #6b748c;
+  --color-ink-500: #454c62;
+  --color-ink-600: #2c3242;
+  --color-ink-700: #1c202c;
+  --color-ink-800: #12151e;
+  --color-ink-900: #0a0c12;
+  --color-ink-950: #05060a;
+
+  /* Type */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-drift: drift 22s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-pulse-glow: pulse-glow 3.2s ease-in-out infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-scan: scan 7s linear infinite;
+  --animate-blink: blink 1.05s step-end infinite;
+  --animate-gradient: gradient-pan 9s ease infinite;
+  --animate-rise: rise 0.8s var(--ease-out-expo) both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.12);
+  }
+  100% {
+    transform: translate3d(-3%, 4%, 0) scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -180% 0;
+  }
+  100% {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1200%);
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-crimson-500) 45%, transparent);
+    color: #fff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-crimson-800) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink-950);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--color-crimson-700), var(--color-crimson-900));
+    border-radius: 999px;
+    border: 2px solid var(--color-ink-950);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(var(--color-crimson-500), var(--color-crimson-700));
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-crimson-400);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+
+/* Frosted panel */
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-ink-800) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in oklab, white 9%, transparent);
+}
+
+@utility glass-strong {
+  background-color: color-mix(in oklab, var(--color-ink-900) 78%, transparent);
+  backdrop-filter: blur(26px) saturate(160%);
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  border: 1px solid color-mix(in oklab, white 11%, transparent);
+}
+
+/* Gradient text */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-crimson-300) 0%,
+    var(--color-crimson-500) 34%,
+    #ff8a5c 62%,
+    var(--color-crimson-400) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 8s ease infinite;
+}
+
+@utility text-gradient-light {
+  background-image: linear-gradient(100deg, #ffffff 0%, #ffd9dc 45%, #ffffff 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 10s ease infinite;
+}
+
+/* Glow shadows */
+@utility glow-crimson {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-crimson-500) 30%, transparent),
+    0 10px 40px -10px color-mix(in oklab, var(--color-crimson-600) 60%, transparent),
+    0 0 70px -30px color-mix(in oklab, var(--color-crimson-400) 80%, transparent);
+}
+
+@utility glow-soft {
+  box-shadow: 0 18px 60px -24px rgb(0 0 0 / 0.9);
+}
+
+/* Animated gradient border */
+@utility border-gradient {
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+
+/* Grid + dot textures */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, white 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, white 4%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(color-mix(in oklab, white 8%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Noise grain overlay */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+/* Mask helpers */
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+/* Section vertical rhythm */
+@utility section {
+  padding-block: clamp(4.5rem, 10vw, 9rem);
+}
+
+/* Fluid display type */
+@utility text-hero {
+  font-size: clamp(2.6rem, 7.2vw, 5.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+@utility text-section {
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+/* Eyebrow label */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* 3D card helpers */
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Legacy long-form content pages (.doc)
+   Scoped overrides so tutorial/agenda pages inherit the dark
+   theme without rewriting every element's utility classes.
+   ============================================================ */
+
+/* Unlayered on purpose: these must override the legacy Tailwind utility
+   classes still present in the markup (bg-gray-100, text-blue-500, ...). */
+.doc {
+  color: var(--color-ink-300);
+  line-height: 1.75;
+}
+
+.doc h1 {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+.doc h2 {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-top: 2.75rem;
+  margin-bottom: 0.75rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--color-crimson-600);
+}
+
+.doc h3 {
+  font-family: var(--font-display);
+  color: var(--color-ink-100);
+  font-size: 1.15rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.doc p {
+  color: var(--color-ink-300);
+  margin-bottom: 1rem;
+}
+
+.doc ul,
+.doc ol {
+  color: var(--color-ink-300);
+  margin-bottom: 1.25rem;
+  padding-left: 1.25rem;
+  list-style-position: outside;
+}
+
+.doc ul {
+  list-style-type: none;
+}
+
+.doc ul > li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.doc ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-crimson-500);
+}
+
+.doc ol > li {
+  margin-bottom: 0.5rem;
+}
+
+.doc a {
+  color: var(--color-crimson-300);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-crimson-400) 45%, transparent);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.doc a:hover {
+  color: var(--color-crimson-200);
+  border-color: var(--color-crimson-300);
+}
+
+.doc pre {
+  background: color-mix(in oklab, var(--color-ink-900) 92%, transparent);
+  border: 1px solid color-mix(in oklab, white 8%, transparent);
+  border-radius: 1rem;
+  padding: 1.25rem 1.4rem;
+  overflow-x: auto;
+  margin-bottom: 1.75rem;
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 6%, transparent);
+}
+
+.doc pre code,
+.doc code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #ffd9dc;
+  background: transparent;
+}
+
+.doc :not(pre) > code {
+  background: color-mix(in oklab, var(--color-crimson-600) 16%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-crimson-500) 25%, transparent);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.4rem;
+}
+
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 1px solid color-mix(in oklab, white 10%, transparent);
+}
+
+.doc th {
+  background: color-mix(in oklab, var(--color-crimson-800) 35%, transparent);
+  color: #fff;
+  font-family: var(--font-display);
+  text-align: left;
+}
+
+.doc th,
+.doc td {
+  border: 1px solid color-mix(in oklab, white 8%, transparent);
+  padding: 0.7rem 0.9rem;
+}
+
+.doc tr:nth-child(even) td {
+  background: color-mix(in oklab, white 2.5%, transparent);
+}
+
+.doc img {
+  border-radius: 1rem;
+}
+
+.doc button {
+  cursor: pointer;
+}
+
+.doc hr {
+  border-color: color-mix(in oklab, white 10%, transparent);
+  margin-block: 2.5rem;
 }

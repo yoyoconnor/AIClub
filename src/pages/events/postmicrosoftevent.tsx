@@ -1,10 +1,13 @@
-import React from "react";
+import React from 'react';
+import { DocPage } from '../../components/ui/DocPage';
 
 const April17Meeting: React.FC = () => {
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6 text-center">AI Club Meeting Agenda – April 17, 2025</h1>
-
+    <DocPage
+      eyebrow="Meeting recap · Apr 17, 2025"
+      title="Post-Microsoft meeting & word vectorization"
+      lede="Popeyes, word embeddings, and a live Word2Vec demo. Slides, code, and the notebook are all below."
+    >
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-2">Food</h2>
         <p>Popeyes 🍗</p>
@@ -52,7 +55,12 @@ print(vector)`}</code>
 
         <div className="mt-4">
           <h3 className="text-xl font-medium mb-1">Attached PDF:</h3>
-          <a href="/documents/ai_news.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+          <a
+            href="/documents/ai_news.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline"
+          >
             View AI News Slides
           </a>
         </div>
@@ -67,12 +75,10 @@ print(vector)`}</code>
         <h2 className="text-2xl font-semibold mb-2">Learning Session</h2>
         <p>Topic: Piggie Bank Project</p>
         <p>Presenter: Sam</p>
-        <p className="mt-2">
-          Note: Building on one prompt and continuously developing new features on one project.
-        </p>
+        <p className="mt-2">Note: Building on one prompt and continuously developing new features on one project.</p>
         <p>Structure: Four Parts | Platform: Google Colab</p>
       </section>
-    </div>
+    </DocPage>
   );
 };
 
