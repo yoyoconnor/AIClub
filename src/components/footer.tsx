@@ -11,8 +11,7 @@ const quickLinks = [
 ];
 
 const contacts = [
-  { label: 'sdhanegan@crimson.ua.edu', href: 'mailto:sdhanegan@crimson.ua.edu' },
-  { label: 'fjgutierez@ua.edu', href: 'mailto:fjgutierez@ua.edu' },
+  { label: 'aiclub@ua.edu', href: 'mailto:aiclub@ua.edu' },
 ];
 
 const Footer = () => (
@@ -50,7 +49,7 @@ const Footer = () => (
                 <Github className="h-4.5 w-4.5" />
               </a>
               <a
-                href="mailto:sdhanegan@crimson.ua.edu"
+                href="mailto:aiclub@ua.edu"
                 aria-label="Email"
                 className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-ink-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson-400/50 hover:text-white"
               >

@@ -7,7 +7,7 @@ import { NeuralCanvas } from './ui/Backdrop';
 const DETAILS = [
   { icon: CalendarDays, label: 'Meetings', value: 'Every other Thursday, 6:00 PM' },
   { icon: MapPin, label: 'Where', value: 'North Engineering Research Center' },
-  { icon: Mail, label: 'Questions', value: 'sdhanegan@crimson.ua.edu' },
+  { icon: Mail, label: 'Questions', value: 'aiclub@ua.edu' },
 ];
 
 const JoinCta = () => (
@@ -49,7 +49,7 @@ const JoinCta = () => (
 
             <Reveal direction="up" delay={0.3}>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <PrimaryButton href="mailto:sdhanegan@crimson.ua.edu?subject=I%20want%20to%20join%20the%20UA%20AI%20Club">
+                <PrimaryButton href="mailto:aiclub@ua.edu?subject=I%20want%20to%20join%20the%20UA%20AI%20Club">
                   Email us to join
                   <ArrowUpRight className="h-4 w-4" />
                 </PrimaryButton>

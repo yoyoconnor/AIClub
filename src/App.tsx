@@ -13,6 +13,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import PythonIntro from './pages/events/pythonintro';
 import ProjectDetailPage from './ProjectDetailPage';
 import April17Meeting from './pages/events/postmicrosoftevent';
+import GroupMeRedirect from './pages/GroupMeRedirect';
 
 function App() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function App() {
               <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
               <Route path="/pythonintro" element={<PythonIntro />} />
               <Route path="/4-17-25" element={<April17Meeting />} />
+              <Route path="/qr" element={<GroupMeRedirect />} />
             </Routes>
           </AnimatePresence>
         </main>

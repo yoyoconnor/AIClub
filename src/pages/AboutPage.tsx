@@ -149,7 +149,7 @@ const AboutPage = () => {
                 Come to one meeting. If it is not for you, no hard feelings.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-                <PrimaryButton href="mailto:sdhanegan@crimson.ua.edu?subject=Joining%20the%20UA%20AI%20Club">
+                <PrimaryButton href="mailto:aiclub@ua.edu?subject=Joining%20the%20UA%20AI%20Club">
                   <Sparkles className="h-4 w-4" />
                   Get in touch
                 </PrimaryButton>
