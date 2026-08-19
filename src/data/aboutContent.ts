@@ -2,7 +2,7 @@ export const aboutPageData = {
   heading: 'About the AI Club',
   intro:
     'We are a student-led community at The University of Alabama figuring out artificial intelligence the only way that actually works — by building it. Beginners and researchers sit at the same table here.',
-  teamImage: '/ELM_0009.jpg',
+  teamImage: '/ELM_0009.webp',
   whatWeDo: [
     'Run hands-on workshops on machine learning, deep learning, and NLP',
     'Organize hackathons, Kaggle sprints, and internal AI challenges',

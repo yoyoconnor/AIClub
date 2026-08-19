@@ -13,7 +13,7 @@ export const projects: Project[] = [
     description:
       'A neural network trained on MNIST that runs entirely in your browser — draw a digit on the canvas and watch the model classify it in real time, no server round-trip required.',
     technologies: ['TensorFlow.js', 'React', 'Canvas API', 'TypeScript'],
-    image: '/AI_hero.jpeg',
+    image: '/AI_hero.webp',
     link: '/projects/digits',
     status: 'Live',
   },

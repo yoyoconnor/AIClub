@@ -19,7 +19,7 @@ export const events: EventType[] = [
     title: 'ML Workshop',
     date: '2025-04-18',
     description: 'Build your first ML model.',
-    image: '/AI_hero.jpeg',
+    image: '/AI_hero.webp',
     link: '#',
   },
 
@@ -27,7 +27,7 @@ export const events: EventType[] = [
     title: 'Welcome Meeting',
     date: '2025-03-30',
     description: 'Kick off the semester with club info.',
-    image: '/AI_hero.jpeg',
+    image: '/AI_hero.webp',
     link: '#',
   },
 
@@ -36,7 +36,7 @@ export const events: EventType[] = [
     title: 'Hackathon: Solve with AI',
     date: '2025-03-20',
     description: 'Team up and solve problems using AI.',
-    image: '/AI_hero.jpeg',
+    image: '/AI_hero.webp',
     link: '#',
   },
   {
@@ -51,7 +51,7 @@ export const events: EventType[] = [
     date: '2025-02-27',
     description:
       'Join us for our first meeting of the semester to discuss upcoming events and opportunities and hear from AI Professionals!',
-    image: '/AI_hero.jpeg',
+    image: '/AI_hero.webp',
     link: 'tutorialpage',
   },
 
