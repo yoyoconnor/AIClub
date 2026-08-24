@@ -17,7 +17,7 @@ export const teamMembers: TeamMember[] = [
     hometown: 'Woodcliff Lake, NJ',
     image: '/team/zach.png',
     bio: 'Founder of GradePath focused on applied AI, automation, and building useful products. Zach leads the club’s vision, partnerships, and practical AI initiatives.',
-    email: 'aiclub@ua.edu',
+    email: 'zlgroves@crimson.ua.edu',
     linkedin: 'https://www.linkedin.com/in/zachary-lyle-groves/',
   },
   {
@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
     hometown: 'Naperville, IL',
     image: '/team/connor.webp',
     bio: 'Connor builds software and applied AI products. He leads the club’s technology, digital platforms, and project execution.',
-    email: 'aiclub@ua.edu',
+    email: 'crbarbaccia@crimson.ua.edu',
     linkedin: 'https://www.linkedin.com/in/connor-barbaccia',
   },
   {
@@ -37,7 +37,7 @@ export const teamMembers: TeamMember[] = [
     hometown: 'Tuscaloosa, AL',
     image: '/team/dawson.png',
     bio: 'Dawson combines software, business, and project-planning experience to manage club operations and turn new initiatives into well-run programs.',
-    email: 'aiclub@ua.edu',
+    email: 'dcsconyers@crimson.ua.edu',
     linkedin: 'https://www.linkedin.com/in/dawson-sconyers/',
   },
   {
@@ -45,13 +45,20 @@ export const teamMembers: TeamMember[] = [
     position: 'External Officer',
     image: '/team/jackie.png',
     bio: 'Jackie leads external outreach and helps build relationships with campus groups, industry partners, and the broader Alabama community.',
-    email: 'aiclub@ua.edu',
+    email: 'jlclayton1@crimson.ua.edu',
   },
   {
     name: 'Dr. Gong',
     position: 'Faculty Advisor',
     image: '/team/gong.webp',
     bio: 'Associate professor of Computer Science, specializes in AI applications across healthcare, engineering, and public services.',
-    email: 'aiclub@ua.edu',
+    email: 'jiaqi.gong@ua.edu',
+  },
+  {
+    name: 'Paul Moreton',
+    position: 'Faculty Advisor',
+    image: '/team/paul-moreton.png',
+    bio: 'Faculty advisor supporting the club’s academic direction, student projects, and connections across the University of Alabama community.',
+    email: 'pymoreton@ua.edu',
   },
 ];
