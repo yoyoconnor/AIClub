@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, CalendarDays, Clock } from 'lucide-react';
+import { ArrowRight, CalendarDays, Clock, MapPin } from 'lucide-react';
 import { events, type EventType } from '../data/clubEvents';
 import { formatEventDate } from '../lib/format';
 import { GlowCard } from './ui/Cards';
@@ -61,6 +61,13 @@ export const EventCard = ({ event, index = 0, past = false }: { event: EventType
           </h3>
           <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-400">{event.description}</p>
 
+          {event.location && (
+            <div className="mt-4 flex items-center gap-2 font-mono text-xs text-ink-300">
+              <MapPin className="h-3.5 w-3.5 text-crimson-400" />
+              {event.location}
+            </div>
+          )}
+
           {target && (
             <div className="mt-6">
               {target.external ? (
@@ -110,7 +117,7 @@ const ClubEvents = () => {
               Workshops, hacks and <span className="text-gradient">talks</span>
             </>
           }
-          lede="Every meeting is hands-on. Bring a laptop, leave with something you built."
+          lede="Meet industry leaders, explore practical AI, and connect with students and faculty building what comes next."
         />
 
         {/* Upcoming */}
