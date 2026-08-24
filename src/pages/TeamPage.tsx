@@ -8,10 +8,11 @@ import { GlowCard } from '../components/ui/Cards';
 import { Chip } from '../components/ui/Buttons';
 
 const GROUPS: { name: string; roles: string[] }[] = [
-  { name: 'Executive Team', roles: ['President', 'Vice President', 'Operations Officer'] },
-  { name: 'Developers', roles: ['Software Developer'] },
-  { name: 'Graduate Advisors', roles: ['Graduate Advisor'] },
-  { name: 'Faculty Advisor', roles: ['Faculty Advisor'] },
+  {
+    name: 'Executive Team',
+    roles: ['President', 'Vice President', 'Operations Officer', 'External Officer'],
+  },
+  { name: 'Faculty Advisors', roles: ['Faculty Advisor'] },
 ];
 
 const MemberCard = ({ member, index }: { member: TeamMember; index: number }) => {
