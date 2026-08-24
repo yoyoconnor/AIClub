@@ -18,7 +18,7 @@ export const events: EventType[] = [
     date: '2026-08-27',
     location: 'Lloyd Hall 38',
     category: 'Community',
-    description: 'Meet the Alabama AI Club and learn how to get involved in practical AI projects, workshops, and industry events.',
+    description: 'Get On Board Day.',
     image: '/group_meeting.webp',
   },
   {
@@ -26,15 +26,15 @@ export const events: EventType[] = [
     date: '2026-09-08',
     location: 'Lloyd Hall 38',
     category: 'Community',
-    description: 'Kick off the semester with Dr. Mohler, guests from Tesla, and faculty looking to connect with students.',
+    description: 'Kickoff with Dr. Mohler, Tesla, and faculty seeking students.',
     image: '/group_meeting.webp',
   },
   {
-    title: 'Cheese CIO',
+    title: 'Chase CIO',
     date: '2026-09-22',
     location: 'Lloyd Hall 38',
     category: 'Industry',
-    description: 'An industry-focused conversation on leadership, technology, and the practical use of AI in organizations.',
+    description: 'Guest session with the Chase CIO.',
     image: '/ELM_0009.webp',
   },
   {
@@ -42,7 +42,7 @@ export const events: EventType[] = [
     date: '2026-10-06',
     location: 'Lloyd Hall 38',
     category: 'Industry',
-    description: 'Claire Major joins the club for a discussion about artificial intelligence and the future of education.',
+    description: 'Claire Major presents on AI education.',
     image: '/AI_hero.webp',
   },
   {
@@ -50,7 +50,7 @@ export const events: EventType[] = [
     date: '2026-10-20',
     location: 'Lloyd Hall 38',
     category: 'Industry',
-    description: 'A guest session with Caroline Sisson Aulbach focused on practical experience, emerging technology, and career insights.',
+    description: 'Guest session with Caroline Sisson Aulbach.',
     image: '/ELM_0009.webp',
   },
   {
@@ -58,7 +58,7 @@ export const events: EventType[] = [
     date: '2026-11-03',
     location: 'Lloyd Hall 38',
     category: 'Industry',
-    description: 'Ben Smith, Chairman of Kearney, shares a business perspective on AI, strategy, and organizational transformation.',
+    description: 'Ben Smith, Chairman at Kearney.',
     image: '/ELM_0009.webp',
   },
   {
@@ -66,7 +66,7 @@ export const events: EventType[] = [
     date: '2026-11-17',
     location: 'Lloyd Hall 38',
     category: 'Community',
-    description: 'Close out the semester, reflect on the club’s progress, and preview what is coming next.',
+    description: 'Year-end meeting.',
     image: '/group_meeting.webp',
   },
 ];
