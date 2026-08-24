@@ -41,19 +41,17 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/dawson-sconyers/',
   },
   {
+    name: 'Jackie Clayton',
+    position: 'External Officer',
+    image: '/team/jackie.png',
+    bio: 'Jackie leads external outreach and helps build relationships with campus groups, industry partners, and the broader Alabama community.',
+    email: 'aiclub@ua.edu',
+  },
+  {
     name: 'Dr. Gong',
     position: 'Faculty Advisor',
     image: '/team/gong.webp',
     bio: 'Associate professor of Computer Science, specializes in AI applications across healthcare, engineering, and public services.',
-    email: 'aiclub@ua.edu',
-  },
-  {
-    name: 'Fabricio Gutierrez',
-    position: 'Software Developer',
-    major: 'Software Engineering',
-    hometown: 'Lima, Perú',
-    image: '/team/fabricio.webp',
-    bio: '',
     email: 'aiclub@ua.edu',
   },
 ];
