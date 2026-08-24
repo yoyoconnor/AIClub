@@ -26,7 +26,7 @@ export const events: EventType[] = [
     date: '2026-09-08',
     location: 'Lloyd Hall 38',
     category: 'Community',
-    description: 'Kickoff with Dr. Mohler, Tesla, and faculty seeking students.',
+    description: 'Fall kickoff meeting.',
     image: '/group_meeting.webp',
   },
   {
